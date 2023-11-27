@@ -8,10 +8,12 @@
 
         <!-- Section header -->
         <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-          <h2 class="h2 font-red-hat-display mb-4 text-black dark:text-white">Pick your Persona</h2>
+
+          <h2 class="text-3xl font-bold">{{ L_('Pick your Persona') }}</h2>
+
+          <h2 class="h2 font-red-hat-display mb-4 text-black dark:text-white"></h2>
           <p class="text-xl text-gray-600 dark:text-gray-400">
-            Select from our ever-growing library of digital personas to
-            guide your AI interactions.</p>
+            {{ L_('Select from our ever-growing library of digital personas to guide your AI interactions.')}}</p>
         </div>
 
         <!-- Section content -->
@@ -49,7 +51,7 @@
                     </div>
                     <button
                       class="mt-3 px-3 py-1 text-xs font-medium bg-gray-900 dark:bg-teal-600 text-white rounded-full hover:opacity-75 transition duration-150 ease-in-out">
-                      Select
+                      {{L_('Select')}}
                     </button>
                   </div>
                 </div>
@@ -66,13 +68,19 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
+//Components
 import defaultImage from "@/images/persona1.png"
 import { usePersonas } from '@/composables/usePersonas.js'
 import { useCategories } from '@/composables/useCategories.js'
+import { useLexicon } from '@/composables/useLexicon';
+
+//Composables
 const { personas, selectedPersona, usedCategories, skills, getPersonas, getSkills, getUsedCategories } = usePersonas()
 const { categories, selectedCategory, getCategories, createAdminCategories } = useCategories()
+const { L_, lng } = useLexicon();
 
-
+//Variables and computed
 let filteredPersonas = computed(() => {
   let filteredPersonas = personas.value;
   if (selectedCategory.value) {
@@ -82,16 +90,13 @@ let filteredPersonas = computed(() => {
       });
     });
   }
-
   return filteredPersonas;
-
-
 })
 
 const router = useRouter()
 const route = useRoute()
 
-
+//Functions
 function selectCategory(category) {
   selectedCategory.value = category;
 }

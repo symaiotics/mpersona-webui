@@ -1,17 +1,20 @@
 <template>
-    <div class="graph-container" ref="graphContainer">
-        <div class="slot-content" style="position: absolute; z-index: 10; width: 100%;">
-            <slot></slot> <!-- This allows parent components to insert content -->
-        </div>
-        <!-- SVG Graph will be appended here -->
-    </div>
+  <div :class="{'graph-container': true, 'dark': dark}" ref="graphContainer">
+      <div class="slot-content" style="position: absolute; z-index: 10; width: 100%;">
+          <slot></slot> <!-- This allows parent components to insert content -->
+      </div>
+      <!-- SVG Graph will be appended here -->
+  </div>
 </template>
   
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, computed } from 'vue';
 import * as d3 from 'd3';
 // Store the interval ID
 let intervalId;
+
+let props = defineProps({dark:{type:Boolean, default: true}})
+let dark = computed(()=>{return props.dark})
 
 const graphContainer = ref(null);
 
@@ -317,7 +320,7 @@ onMounted(() => {
     link.exit().remove(); // Remove old links
     link = link.enter().append('line').merge(link)
         // .attr('filter', 'url(#blur-filter)')
-        .attr('stroke', '#999')
+        .attr('stroke', dark.value?'#999':"#333")
         .attr('stroke-opacity', 0.6)
         .attr('stroke-width', 1.5);
 
@@ -355,12 +358,25 @@ intervalId = setInterval(updateGraph, 3000);;
   
 
 <style scoped>
+
+:root {
+    --graph-bg-dark: radial-gradient(circle at 50px 50px, #283c58, #070d16);
+    --graph-bg-light: radial-gradient(circle at 50px 50px, #ced9e6, #888fa0); /* Adjust these colors for your dark theme */
+}
+
 .graph-container {
     width: 100%;
     height: 100vh;
-    background: radial-gradient(circle at 50px 50px, #283c58, #070d16);
+
+    background: var(--graph-bg-light);
+    /* background: radial-gradient(circle at 50px 50px, #283c58, #070d16); */
     position: relative;
     overflow: hidden;
+}
+
+
+.dark .graph-container {
+    background: var(--graph-bg-dark);
 }
 
 .slot-content {
