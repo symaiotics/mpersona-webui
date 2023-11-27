@@ -94,7 +94,7 @@ import { notify } from "notiwind"
 
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
-import defaultImage from "../images/persona1.png"
+import defaultImage from "@/images/persona1.png"
 
 import CodeJson from 'vue-material-design-icons/CodeJson.vue';
 import LanguageJavascript from 'vue-material-design-icons/LanguageJavascript.vue';
@@ -111,12 +111,12 @@ import { CloudIcon } from '@heroicons/vue/24/solid'
 import MarkdownIt from 'markdown-it';
 
 //Components
-import ButtonClose from '@/components/ButtonClose.vue';
-import ButtonEdit from '@/components/ButtonEdit.vue';
-import ButtonGenerate from '@/components/ButtonGenerate.vue';
-import ButtonWait from '@/components/ButtonWait.vue';
-import EditContent from '@/components/EditContent.vue';
-import MarkdownReveal from '@/components/MarkdownReveal.vue';
+import ButtonClose from '@/components/mPersona/ButtonClose.vue';
+import ButtonEdit from '@/components/mPersona/ButtonEdit.vue';
+import ButtonGenerate from '@/components/mPersona/ButtonGenerate.vue';
+import ButtonWait from '@/components/mPersona/ButtonWait.vue';
+import EditContent from '@/components/mPersona/EditContent.vue';
+import MarkdownReveal from '@/components/mPersona/MarkdownReveal.vue';
 
 //Composables
 import { useWebsockets } from '@/composables/useWebsockets.js';

@@ -1,16 +1,11 @@
 <template>
-  <div class="flex flex-col min-h-screen overflow-hidden">
+    <LayoutGuest>
+    <div class="min-h-screen flex flex-col">
 
-    <!-- Site header -->
-    <Header />
+  <div class="flex flex-col min-h-screen overflow-hidden">
 
     <!-- Page content -->
     <main class="grow">
-
-      <!-- Page illustration -->
-      <div class="relative max-w-6xl mx-auto h-0 pointer-events-none -z-1" aria-hidden="true">
-        <PageIllustration />
-      </div>
 
       <!-- Page sections -->
 
@@ -58,10 +53,10 @@
 
     </main>
 
-    <!-- Site footer -->
-    <Footer />
 
   </div>
+  </div>
+  </LayoutGuest>
 </template>
 
 <script setup>
@@ -70,17 +65,13 @@ import { ref, onMounted, nextTick, watch } from 'vue';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import Header from '@/partials/Header.vue'
-import PageIllustration from '@/partials/PageIllustration.vue'
-import HeroChat from '@/partials/HeroChat.vue'
-import HelpList from '@/partials/HelpList.vue'
-import ChatList from '@/partials/ChatList.vue'
-import RelatedLinks from '@/partials/RelatedLinks.vue'
-import Footer from '@/partials/Footer.vue'
+import LayoutGuest from '@/layouts/LayoutGuest.vue';
+import Socket from '@/components/mPersona/Socket.vue'
+import HeroChat from '@/components/mPersona/HeroChat.vue'
+import ChatWindow from '@/components/mPersona/ChatWindow.vue'
+import ChatList from '@/components/mPersona/ChatList.vue'
 
-import DisplayPersona from '@/components/DisplayPersona.vue'
-import ChatWindow from '@/components/ChatWindow.vue'
-import Socket from '@/components/Socket.vue'
+// import DisplayPersona from '@/components/mPersona/DisplayPersona.vue'
 
 //Composables
 import { useModels } from '@/composables/useModels.js'

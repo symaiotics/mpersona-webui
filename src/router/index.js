@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Chat from '@/views/mPersona/Chat.vue'
+
+
 const routes = [
 
   // Document title tag
@@ -19,6 +22,21 @@ const routes = [
     name: 'dashboard',
     component: () => import('@/views/DashboardView.vue')
   },
+
+
+  {
+    meta: {
+      title: 'Chat'
+    },
+    path: '/chat/:personaId?',
+    name: 'chat',
+    props: true,
+    component: () => import('@/views/mPersona/Chat.vue')
+  },
+
+
+
+
   {
     meta: {
       title: 'Select style'
