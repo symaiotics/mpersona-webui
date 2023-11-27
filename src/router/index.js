@@ -3,14 +3,29 @@ import Style from '@/views/StyleView.vue'
 import Home from '@/views/HomeView.vue'
 
 const routes = [
+
+  {
+    // Document title tag
+    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
+    meta: {
+      title: 'Landing'
+    },
+    path: '/',
+    name: 'landing',
+    component: () => import('@/views/LandingView.vue')
+  },
+
   {
     meta: {
       title: 'Select style'
     },
-    path: '/',
+    path: '/style',
     name: 'style',
     component: Style
   },
+
+
+  
   {
     // Document title tag
     // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
@@ -22,16 +37,6 @@ const routes = [
     component: Home
   },
 
-  {
-    // Document title tag
-    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
-    meta: {
-      title: 'Landing'
-    },
-    path: '/landing',
-    name: 'landing',
-    component: () => import('@/views/LandingView.vue')
-  },
 
   {
     meta: {

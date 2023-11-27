@@ -16,9 +16,9 @@
       <img v-else :src="Splash2Light" alt="mPersona Logo" class="mx-auto md:h-96 h-64 object-cover animate-scale" />
 
       <!-- Text colors are adjusted for light mode with black text and for dark mode with lighter text -->
-      <h1 class="md:text-8xl text-5xl font-bold dark:text-gray-100 text-black">{{ L_('mPersona') }}</h1>
+      <h1 class="md:text-8xl text-5xl font-bold dark:text-gray-100 text-gray-800">{{ L_('mPersona') }}</h1>
       <h2 class="md:text-2xl mt-2 italic dark:text-gray-300 text-gray-800">{{ L_('by Symaiotics') }}</h2>
-      <p class="md:text-3xl mt-4 font-bold dark:text-gray-400 text-gray-900">
+      <p class="md:text-3xl mt-4 font-bold dark:text-gray-400 text-gray-800">
         {{ L_('Build your team of digital AI personas.') }} <br />{{ L_("Automate your enterprise.") }}
       </p>
       <!-- Button colors are kept the same as in the original code -->
