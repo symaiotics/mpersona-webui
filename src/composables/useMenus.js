@@ -1,11 +1,18 @@
 import { ref } from "vue";
 import configuredAxios from "@/utils/axios.js"
 
+
+import Splash2 from '@/images/splash2.png'
+import Splash2Light from '@/images/splash2-light.png'
+
+import { useDarkMode } from '@/composables/useDarkMode.js'
+const { dark, getDark, setDark } = useDarkMode();
+
 import { useTokens } from '@/composables/useTokens.js'
 const { tokenDecoded } = useTokens();
 
 import { useLexicon } from '@/composables/useLexicon.js'
-const { lng } = useLexicon();
+const { lng, L_ } = useLexicon();
 
 import {
     mdiMenu,
@@ -33,35 +40,40 @@ import {
 
 
 export function useMenus() {
-    async function getVisitorMenu() {
+    function getVisitorMenu() {
 
         return [
             {
-                label: 'EN/FR',
+                label: L_('Home'),
+                isDesktopNoLabel: true,
+                img: dark.value ? Splash2 : Splash2Light,
+                routeTo: 'home',
+            },
+            {
+                label: lng.value == 'en' ? "FR" : 'EN',
                 isDesktopNoLabel: false,
                 toggleLng: true,
             },
             {
                 icon: mdiThemeLightDark,
-                label: 'Light/Dark',
+                label: L_('Light/Dark'),
                 isDesktopNoLabel: true,
                 isToggleLightDark: true
             },
             {
                 icon: mdiLogin,
-                label: 'Log in',
+                label: L_('Log in'),
                 isDesktopNoLabel: true,
-                isLogout: true
+                isLogin: true
             }
         ]
 
 
     }
 
-    async function getUserMenu() {
+    function getUserMenu() {
 
-        return
-        [
+        return [
             {
                 icon: mdiMenu,
                 label: 'Sample menu',
@@ -133,73 +145,110 @@ export function useMenus() {
 
     }
 
-    async function getDashboardMenu() {
-        return
-
-        [
+    function getAsideMenu() {
+        return [
             {
                 to: '/dashboard',
                 icon: mdiMonitor,
-                label: 'Dashboard'
+                label: L_('Dashboard')
             },
+
             {
-                to: '/tables',
-                label: 'Tables',
-                icon: mdiTable
+                to: '/dashboard',
+                icon: mdiMonitor,
+                label: L_('Personas')
             },
+
+           
             {
-                to: '/forms',
-                label: 'Forms',
-                icon: mdiSquareEditOutline
+                to: '/dashboard',
+                icon: mdiMonitor,
+                label: L_('Rosters')
             },
+
             {
-                to: '/ui',
-                label: 'UI',
-                icon: mdiTelevisionGuide
+                to: '/dashboard',
+                icon: mdiMonitor,
+                label: L_('Work Streams')
             },
+
             {
-                to: '/responsive',
-                label: 'Responsive',
-                icon: mdiResponsive
+                to: '/dashboard',
+                icon: mdiMonitor,
+                label: L_('Knowledge Profiles')
             },
+
             {
-                to: '/',
-                label: 'Styles',
-                icon: mdiPalette
+                to: '/dashboard',
+                icon: mdiMonitor,
+                label: L_('Actions')
             },
+
+            {
+                to: '/dashboard',
+                icon: mdiMonitor,
+                label: L_('Wrapps')
+            },
+
+
+            // {
+            //     to: '/tables',
+            //     label: 'Tables',
+            //     icon: mdiTable
+            // },
+            // {
+            //     to: '/forms',
+            //     label: 'Forms',
+            //     icon: mdiSquareEditOutline
+            // },
+            // {
+            //     to: '/ui',
+            //     label: 'UI',
+            //     icon: mdiTelevisionGuide
+            // },
+            // {
+            //     to: '/responsive',
+            //     label: 'Responsive',
+            //     icon: mdiResponsive
+            // },
+            // {
+            //     to: '/',
+            //     label: 'Styles',
+            //     icon: mdiPalette
+            // },
             {
                 to: '/profile',
-                label: 'Profile',
+                label: L_('Profile'),
                 icon: mdiAccountCircle
             },
-            {
-                to: '/login',
-                label: 'Login',
-                icon: mdiLock
-            },
-            {
-                to: '/error',
-                label: 'Error',
-                icon: mdiAlertCircle
-            },
-            {
-                label: 'Dropdown',
-                icon: mdiViewList,
-                menu: [
-                    {
-                        label: 'Item One'
-                    },
-                    {
-                        label: 'Item Two'
-                    }
-                ]
-            },
-            {
-                href: 'https://github.com/symaiotics/mpersona-vue',
-                label: 'GitHub',
-                icon: mdiGithub,
-                target: '_blank'
-            },
+            // {
+            //     to: '/login',
+            //     label: 'Login',
+            //     icon: mdiLock
+            // },
+            // {
+            //     to: '/error',
+            //     label: 'Error',
+            //     icon: mdiAlertCircle
+            // },
+            // {
+            //     label: 'Dropdown',
+            //     icon: mdiViewList,
+            //     menu: [
+            //         {
+            //             label: 'Item One'
+            //         },
+            //         {
+            //             label: 'Item Two'
+            //         }
+            //     ]
+            // },
+            // {
+            //     href: 'https://github.com/symaiotics/mpersona-vue',
+            //     label: 'GitHub',
+            //     icon: mdiGithub,
+            //     target: '_blank'
+            // },
 
         ]
 
@@ -210,7 +259,7 @@ export function useMenus() {
     return {
         getVisitorMenu,
         getUserMenu,
-        getDashboardMenu,
+        getAsideMenu,
 
     };
 }

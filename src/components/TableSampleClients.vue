@@ -1,6 +1,9 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useMainStore } from '@/stores/main'
+
+import { useDemoData } from '@/composables/useDemoData';
+let {clients} = useDemoData();
+
 import { mdiEye, mdiTrashCan } from '@mdi/js'
 import CardBoxModal from '@/components/CardBoxModal.vue'
 import TableCheckboxCell from '@/components/TableCheckboxCell.vue'
@@ -13,9 +16,8 @@ defineProps({
   checkable: Boolean
 })
 
-const mainStore = useMainStore()
 
-const items = computed(() => mainStore.clients)
+const items = computed(() => clients.value)
 
 const isModalActive = ref(false)
 

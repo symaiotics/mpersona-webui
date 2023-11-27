@@ -11,19 +11,25 @@ import { onMounted } from 'vue'
 import AOS from 'aos'
 
 import { useLexicon } from '@/composables/useLexicon.js'
+const { getLexicon, getLng } = useLexicon();
 
 import { useDarkMode } from '@/composables/useDarkMode.js'
-import { useTokens } from '@/composables/useTokens.js'
-import { useWebsockets } from '@/composables/useWebsockets.js'
-const { getLexicon } = useLexicon();
 const { dark, getDark, setDark } = useDarkMode();
+
+import { useTokens } from '@/composables/useTokens.js'
 const { recallTokens } = useTokens();
+
+import { useWebsockets } from '@/composables/useWebsockets.js'
 const { websocketConnection, wsUuid } = useWebsockets()
+
+import { useDemoData } from '@/composables/useDemoData';
+let { fetchSampleClients, fetchSampleHistory } = useDemoData();
+
 
 onMounted(() => {
 
   getLexicon();
-  
+
   recallTokens();
   AOS.init({
     once: true,
@@ -34,7 +40,12 @@ onMounted(() => {
 
 })
 
+getDark(); //Remember the dark settings
+getLng(); //Remember the language
+
+fetchSampleClients();
+fetchSampleHistory();
+
 websocketConnection()
-getDark(); //Default to false
 
 </script>

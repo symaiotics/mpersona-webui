@@ -5,6 +5,10 @@ import AsideMenuList from '@/components/AsideMenuList.vue'
 import AsideMenuItem from '@/components/AsideMenuItem.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 
+import { useLexicon } from '@/composables/useLexicon';
+const { L_ } = useLexicon();
+
+
 defineProps({
   menu: {
     type: Array,
@@ -28,6 +32,11 @@ const menuClick = (event, item) => {
 const asideLgCloseClick = (event) => {
   emit('aside-lg-close-click', event)
 }
+
+function goHome()
+{
+  return import.meta.env.VITE_SELF;
+}
 </script>
 
 <template>
@@ -38,7 +47,7 @@ const asideLgCloseClick = (event) => {
     <div class="aside lg:rounded-2xl flex-1 flex flex-col overflow-hidden dark:bg-slate-900">
       <div class="aside-brand flex flex-row h-14 items-center justify-between dark:bg-slate-900">
         <div class="text-center flex-1 lg:text-left lg:pl-6 xl:text-center xl:pl-0">
-          <b class="font-black">mPersona</b>
+          <a :href = "goHome()"><b class="font-black">{{L_('mPersona')}}</b></a>
         </div>
         <button class="hidden lg:inline-block xl:hidden p-3" @click.prevent="asideLgCloseClick">
           <BaseIcon :path="mdiClose" />

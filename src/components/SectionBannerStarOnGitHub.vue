@@ -10,7 +10,7 @@ import { gradientBgPinkRed } from '@/colors'
     <h1 class="text-3xl text-white mb-6">Like the project? Please star on <b>GitHub</b> ;-)</h1>
     <div>
       <BaseButton
-        href="https://github.com/symaiotics/mpersona-vue"
+        href="https://github.com/symaiotics/mpersona-webui"
         :icon="mdiGithub"
         label="GitHub"
         target="_blank"

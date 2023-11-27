@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-50 dark:bg-slate-800 dark:text-slate-100">
-
-    <NavBar :menu="menuNavBarSimple" :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
+    <!-- {{ getVisitorMenu() }} -->
+    <NavBar :menu="getVisitorMenu()" :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
       @menu-click="menuClick">
     </NavBar>
 
@@ -19,9 +19,13 @@ import NavBar from '@/components/NavBar.vue'
 import NavBarItemPlain from '@/components/NavBarItemPlain.vue'
 import FooterBar from '@/components/FooterBar.vue'
 
+import { useMenus } from '@/composables/useMenus.js'
+const { getVisitorMenu } = useMenus();
+
 import { useLexicon } from '@/composables/useLexicon.js'
+const { toggleLng } = useLexicon();
+
 import { useDarkMode } from '@/composables/useDarkMode.js'
-const { toggleLng  } = useLexicon();
 const { dark, getDark, setDark, toggleDark } = useDarkMode();
 
 const layoutAsidePadding = 'xl:pl-60'
@@ -43,10 +47,16 @@ const menuClick = (event, item) => {
     toggleLng();
   }
 
+  if (item.isLogin) {
+    router.push({ name: "login" })
 
-  if (item.isLogout) {
-    //
   }
+
+  if (item.routeTo) {
+    router.push({ name: item.routeTo })
+
+  }
+
 }
 
 </script>

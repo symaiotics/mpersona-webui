@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { useDarkModeStore } from '@/stores/darkMode.js'
+
 import { gradientBgPurplePink } from '@/colors.js'
 import SectionMain from '@/components/SectionMain.vue'
 import CardBox from '@/components/CardBox.vue'
@@ -8,9 +8,6 @@ import LayoutGuest from '@/layouts/LayoutGuest.vue'
 
 const styles = ['white', 'basic']
 
-const darkModeStore = useDarkModeStore()
-
-darkModeStore.set(false)
 
 const router = useRouter()
 

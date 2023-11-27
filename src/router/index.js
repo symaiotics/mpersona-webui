@@ -1,43 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Style from '@/views/StyleView.vue'
-import Home from '@/views/HomeView.vue'
-
 const routes = [
 
+  // Document title tag
+  // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
   {
-    // Document title tag
-    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
     meta: {
-      title: 'Landing'
+      title: 'mPersona'
     },
     path: '/',
-    name: 'landing',
-    component: () => import('@/views/LandingView.vue')
+    name: 'home',
+    component: () => import('@/views/HomeView.vue')
   },
-
+  {
+    meta: {
+      title: 'Dashboard'
+    },
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/DashboardView.vue')
+  },
   {
     meta: {
       title: 'Select style'
     },
     path: '/style',
     name: 'style',
-    component: Style
+    component: () => import('@/views/StyleView.vue')
   },
-
-
-  
-  {
-    // Document title tag
-    // We combine it with defaultDocumentTitle set in `src/main.js` on router.afterEach hook
-    meta: {
-      title: 'Dashboard'
-    },
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Home
-  },
-
-
   {
     meta: {
       title: 'Tables'

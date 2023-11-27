@@ -2,7 +2,13 @@
 import { mdiChevronUp, mdiChevronDown } from '@mdi/js'
 import { RouterLink } from 'vue-router'
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
-import { useMainStore } from '@/stores/main.js'
+
+import { useDemoData } from '@/composables/useDemoData';
+let {username} = useDemoData();
+
+import { useTokens } from '@/composables/useTokens';
+let {tokenDecoded} = useTokens();
+
 import BaseIcon from '@/components/BaseIcon.vue'
 import UserAvatarCurrentUser from '@/components/UserAvatarCurrentUser.vue'
 import NavBarMenuList from '@/components/NavBarMenuList.vue'
@@ -45,7 +51,8 @@ const componentClass = computed(() => {
 })
 
 const itemLabel = computed(() =>
-  props.item.isCurrentUser ? useMainStore().userName : props.item.label
+  props.item.isCurrentUser =  props.item.label
+  //tokenDecoded?.value?.username || username?.value ||
 )
 
 const isDropdownActive = ref(false)
@@ -106,7 +113,7 @@ onBeforeUnmount(() => {
       <UserAvatarCurrentUser v-if="item.isCurrentUser" class="w-6 h-6 mr-3 inline-flex" />
       <BaseIcon v-if="item.icon" :path="item.icon" class="transition-colors" />
       <span
-        class="px-2 transition-colors"
+        class="px-2 transition-colors whitespace-nowrap"
         :class="{ 'lg:hidden': item.isDesktopNoLabel && item.icon }"
         >{{ itemLabel }}</span
       >
@@ -123,5 +130,8 @@ onBeforeUnmount(() => {
     >
       <NavBarMenuList :menu="item.menu" @menu-click="menuClickDropdown" />
     </div>
-  </component>
+
+ 
+
+</component>
 </template>

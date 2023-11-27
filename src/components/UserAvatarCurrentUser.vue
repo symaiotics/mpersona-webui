@@ -1,12 +1,16 @@
 <script setup>
-import { useMainStore } from '@/stores/main'
 import UserAvatar from '@/components/UserAvatar.vue'
 
-const mainStore = useMainStore()
+import { useTokens } from '@/composables/useTokens';
+let { tokenDecoded } = useTokens();
+
+import { useDemoData } from '@/composables/useDemoData';
+let { username, userAvatar } = useDemoData();
+
 </script>
 
 <template>
-  <UserAvatar :username="mainStore.userName" :avatar="mainStore.userAvatar">
+  <UserAvatar :username="tokenDecoded?.username || username" :avatar="userAvatar">
     <slot />
   </UserAvatar>
 </template>
