@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Chat from '@/views/mPersona/Chat.vue'
 
+import { useTokens } from '@/composables/useTokens';
+let { tokenDecoded } = useTokens();
 
 const routes = [
 
@@ -14,28 +15,26 @@ const routes = [
     name: 'home',
     component: () => import('@/views/HomeView.vue')
   },
+
+  
   {
     meta: {
       title: 'Dashboard'
     },
-    path: '/dashboard',
+    path: '/dashboard_tableau-de-bord',
     name: 'dashboard',
     component: () => import('@/views/DashboardView.vue')
   },
-
 
   {
     meta: {
       title: 'Chat'
     },
-    path: '/chat/:personaId?',
+    path: '/chat_discuter/:personaId?',
     name: 'chat',
     props: true,
     component: () => import('@/views/mPersona/Chat.vue')
   },
-
-
-
 
   {
     meta: {
@@ -65,7 +64,7 @@ const routes = [
     meta: {
       title: 'Profile'
     },
-    path: '/profile',
+    path: '/profile_profil',
     name: 'profile',
     component: () => import('@/views/ProfileView.vue')
   },
@@ -89,7 +88,7 @@ const routes = [
     meta: {
       title: 'Login'
     },
-    path: '/login',
+    path: '/login_connecter',
     name: 'login',
     component: () => import('@/views/LoginView.vue')
   },
@@ -110,5 +109,17 @@ const router = createRouter({
     return savedPosition || { top: 0 }
   }
 })
+
+//Apply security 
+router.beforeEach((to, from, next) => {
+  if (to.name === 'dashboard' && !tokenDecoded?.value?.username) {
+    // If trying to access dashboard without a valid token, redirect to login
+    next({ name: 'login' })
+  } else {
+    // Otherwise, proceed as normal
+    next()
+  }
+})
+
 
 export default router

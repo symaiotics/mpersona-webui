@@ -76,7 +76,7 @@ export function useMenus() {
         return [
             {
                 icon: mdiMenu,
-                label: 'Sample menu',
+                label: tokenDecoded?.value?.username || 'Guest',
                 menu: [
                     {
                         icon: mdiClockOutline,

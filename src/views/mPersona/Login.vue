@@ -1,16 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen overflow-hidden">
 
-    <!-- Site header -->
-    <Header />
-
+ 
     <!-- Page content -->
     <main class="grow">
-
-      <!-- Page illustration -->
-      <div class="relative max-w-6xl mx-auto h-0 pointer-events-none -z-1" aria-hidden="true">
-        <PageIllustration />
-      </div>
 
       <section class="relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -59,10 +52,7 @@
       </section>
 
     </main>
-
-    <!-- Site footer -->
-    <!-- <Footer /> -->
-
+ 
   </div>
 </template>
 
@@ -70,10 +60,6 @@
 
 import { ref, computed, onMounted } from 'vue';
 
-
-import Header from './../partials/Header.vue'
-import PageIllustration from './../partials/PageIllustration.vue'
-import Footer from './../partials/Footer.vue'
 
 //Plugins
 import { useRouter, useRoute } from 'vue-router'

@@ -5,7 +5,7 @@
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
         <FormField label="Login" help="Please enter your login">
           <FormControl
-            v-model="form.login"
+            v-model="username"
             :icon="mdiAccount"
             name="login"
             autocomplete="username"
@@ -14,7 +14,7 @@
 
         <FormField label="Password" help="Please enter your password">
           <FormControl
-            v-model="form.pass"
+            v-model="password"
             :icon="mdiAsterisk"
             type="password"
             name="password"
@@ -22,17 +22,17 @@
           />
         </FormField>
 
-        <FormCheckRadio
+        <!-- <FormCheckRadio
           v-model="form.remember"
           name="remember"
           label="Remember"
           :input-value="true"
-        />
+        /> -->
 
         <template #footer>
           <BaseButtons>
-            <BaseButton type="submit" color="info" label="Login" />
-            <BaseButton to="/dashboard" color="info" outline label="Back" />
+            <BaseButton @click = "doLogin" type="button" color="info" label="Login" />
+            <BaseButton to="/" color="info" outline label="Back" />
           </BaseButtons>
         </template>
       </CardBox>
@@ -41,9 +41,14 @@
 </template>
 
 
+
 <script setup>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+
+//Plugins
+import { ref, computed, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router'
+
+//Components
 import { mdiAccount, mdiAsterisk } from '@mdi/js'
 import SectionFullScreen from '@/components/SectionFullScreen.vue'
 import CardBox from '@/components/CardBox.vue'
@@ -54,15 +59,29 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseButtons from '@/components/BaseButtons.vue'
 import LayoutGuest from '@/layouts/LayoutGuest.vue'
 
-const form = reactive({
-  login: 'john.doe',
-  pass: 'highly-secure-password-fYjUw-',
-  remember: true
-})
-
+//Composables
+import { notify } from "notiwind"
+import { useAccounts } from '@/composables/useAccounts.js'
+import { useTokens } from '@/composables/useTokens.js'
+const { login } = useAccounts();
+const { unsetTokens } = useTokens();
 const router = useRouter()
 
-const submit = () => {
-  router.push('/dashboard')
+let username = ref(null)
+let password = ref(null)
+
+onMounted(()=>{
+  unsetTokens();
+})
+
+function doLogin() {
+  login(username.value, password.value).then((response) => {
+    notify({ group: "success", title: "Success", text: "Login successful"}, 4000) // 4s
+    router.push({ name: 'dashboard' })
+  }).catch((error) => {
+    console.log("Error identified", error)
+    notify({ group: "failure", title: "Error", text: "Login unsuccessful. Please try again." }, 4000) // 4s
+  });
 }
+
 </script>
